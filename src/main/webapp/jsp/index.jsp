@@ -11,6 +11,8 @@
     <title>主页</title>
 </head>
 <body>
-2333333333333
+<p>welcome ! ${user.userName}</p>
+<br>
+<p>你的权限：${role.roleName}</p>
 </body>
 </html>

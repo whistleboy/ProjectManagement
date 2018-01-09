@@ -5,10 +5,25 @@ package com.axqjx.ssm.model;
  */
 public class User {
 
-    private Integer id;
+    //人员编号
+    private Integer userId;
+    //用户名
     private String userName;
+    //密码
     private String password;
-    private Integer age;
+    //角色代号
+    private Integer roleId;
+    //预留字段
+    private String attr1;
+    private String attr2;
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 
     public String getUserName() {
         return userName;
@@ -16,14 +31,6 @@ public class User {
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getPassword() {
@@ -34,11 +41,27 @@ public class User {
         this.password = password;
     }
 
-    public Integer getAge() {
-        return age;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
+    }
+
+    public String getAttr1() {
+        return attr1;
+    }
+
+    public void setAttr1(String attr1) {
+        this.attr1 = attr1;
+    }
+
+    public String getAttr2() {
+        return attr2;
+    }
+
+    public void setAttr2(String attr2) {
+        this.attr2 = attr2;
     }
 }
