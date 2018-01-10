@@ -7,15 +7,17 @@ import com.axqjx.ssm.model.User;
  */
 public interface UserDao {
 
-    int deleteByPrimaryKey(Integer id);
+    Integer deleteByPrimaryKey(Integer id);
 
-    int insert(User record);
+    Integer insert(User record);
 
-    int insertSelective(User record);
+    Integer insertSelective(User record);
 
     User selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(User record);
+    Integer selectByUserName(String userName);
 
-    int updateByPrimaryKey(User record);
+    Integer updateByPrimaryKeySelective(User record);
+
+    Integer updateByPrimaryKey(User record);
 }

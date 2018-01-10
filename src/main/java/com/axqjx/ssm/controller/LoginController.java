@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by qjx on 2018/1/5.
@@ -41,15 +42,28 @@ public class LoginController {
 
     @RequestMapping("/queryRoles")
     @ResponseBody
-    public ArrayList<Role> queryRoles() {
+    public List<Role> queryRoles() {
             return us.queryAllRoles();
     }
 
+    @RequestMapping("/checkUserName")
+    @ResponseBody
+    public boolean checkUserName(String userName) {
+        return us.checkUserName(userName);
+    }
+
     @RequestMapping("/login")
-    public ModelAndView login(HttpServletRequest request,  User user) {
+    public ModelAndView login(HttpServletRequest request,  String userName, String password) {
         ModelAndView mv = new ModelAndView();
-        mv.addObject("user", user);
-        mv.setViewName("index");
+        User user = new User();
+        user = us.login(userName, password);
+        if(user != null) {
+            mv.addObject("user", user);
+            mv.setViewName("index");
+        }else {
+            mv.addObject("msg", "用户名或密码错误");
+            mv.setViewName("login");
+        }
         return mv;
     }
 

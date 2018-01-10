@@ -15,18 +15,18 @@
 <html>
 <head>
     <title>注册</title>
-    <script src="<%=basePath%>public/js/jquery.js"></script>
 </head>
 <body>
-<form action="/login/register" method="post">
-  用户名：<input type="text" name="userName">
+<form action="/login/register" method="post" id="myform">
+  用户名：<input type="text" name="userName" id="userName"><span style="color: red" id="checkname"></span>
   <br>
   密码：<input type="password"  name="password">
   <br>
   <select name="roleId" id="roleId" value=""></select>
   <button type="submit">提交</button>
 </form>
-
+</body>
+<script type="text/javascript" src="<%=basePath%>public/js/jquery.js"></script>
 <script>
   $(function(){
     $("#roleId").empty();
@@ -41,7 +41,6 @@
         $(data).each(function(i,d){
           var id = d.roleId;
           var name = d.roleName;
-          /* $("#chargeId").append("<option value="+id+">"+name+"</option>"); */
           var option="<option value=\""+id+"\"";
           if(id == "${requestScope.roleId}"){
             option += "selected=\"selected\" ";
@@ -49,10 +48,48 @@
           option +=">"+name+"</option>";
           $("#roleId").append(option);
         });
+      }
+    });
+  });
 
+  $(function() {
+    var username_result = false;
+    //blue失去焦点
+    $("#userName").blur(function () {
+      var username_val = $("#userName").val()
+      if ($("#userName").val() == "") {
+        $("#checkname").html("userName not null!");
+        username_result = false;
+      } else {
+        $.ajax({
+          async: true,
+          data:{"userName":username_val},
+          dataType: "text",
+          url: "/login/checkUserName",
+          error: function (xhr, status) {
+            console.log(status);
+          },
+          success: function (data) {
+            if (data=="false") {
+              username_result = true;
+              $("#checkname").html("用户名可用");
+            }
+            else {
+              username_result = false;
+              $("#checkname").html("用户名已存在");
+            }
+          }
+        });
+      }
+    });
+    $("#myform").submit(function(){
+      if(username_result == true){
+        return true;
+      }
+      else{
+        return false;
       }
     });
   });
 </script>
-</body>
 </html>

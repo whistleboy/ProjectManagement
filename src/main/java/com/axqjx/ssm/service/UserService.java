@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by qjx on 2018/1/5.
@@ -33,9 +34,30 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public ArrayList<Role> queryAllRoles() {
-        ArrayList<Role> roles = new ArrayList<Role>();
+    public List<Role> queryAllRoles() {
+        List<Role> roles = new ArrayList<Role>();
         roles = rd.queryAllRoles();
+        return roles;
+    }
+
+    @Override
+    public boolean checkUserName(String userName) {
+        Integer id = ud.selectByUserName(userName);
+        return (ud.selectByUserName(userName) != null);
+    }
+
+    @Override
+    public User login(String userName, String password) {
+        Integer userId = ud.selectByUserName(userName);
+        User user = new User();
+        if(userId != null) {
+            user = ud.selectByPrimaryKey(userId);
+            if (password.equals(user.getPassword())) {
+                return user;
+            } else {
+                return null;
+            }
+        }
         return null;
     }
 }

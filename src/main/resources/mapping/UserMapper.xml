@@ -16,6 +16,11 @@
         from t_user
         where user_id = #{userId,jdbcType=INTEGER}
     </select>
+    <select id="selectByUserName" resultType="java.lang.Integer" parameterType="java.lang.String" >
+        select user_id
+        from t_user
+        where user_name = #{userName,jdbcType=VARCHAR}
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
         delete from t_user
         where user_id = #{userId,jdbcType=INTEGER}
